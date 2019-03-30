@@ -1,30 +1,14 @@
-//#include<semaphore.h>
+#include<Semaphores.h>
 
 #include<pthread.h>
 
 #include<stdio.h>
-#include <sys/types.h>
-#include <sys/sem.h>
-class Semaphore
-{
-  private:
-    key_t key;
-    int nSems;
-    struct sembuf sb;
-    int semid;
-
-    int initSem();
-
-  public:
-    Semaphore(int);
-    void getLock();
-    void ReleaseLock();};
 
     int rc = 0, wc = 0, val;
 
     pthread_mutex_t mutex1, mwrite, mread, rallow;
 
-    pthread_t tr1, tr2, tw1, tw2;
+    pthread_t tr1, tr2, tl1, tl2;
 
     pthread_attr_t tr1attr, tr2attr, tw1attr, tw2attr;
 
@@ -44,17 +28,17 @@ class Semaphore
 
         pthread_mutex_init(&mutex1, NULL);
 
-        pthread_attr_init(&tw1attr);
+        pthread_attr_init(&tl1attr);
 
         pthread_attr_init(&tr1attr);
 
         pthread_attr_init(&tr2attr);
 
-        pthread_attr_init(&tw2attr);
+        pthread_attr_init(&tl2attr);
 
         printf("\n Writer 1 created");
 
-        pthread_create(&tw1, &tw1attr, writer, NULL);
+        pthread_create(&tl1, &tl1attr, writer, NULL);
 
         printf("\n Reader 1 created");
 
@@ -66,15 +50,15 @@ class Semaphore
 
         printf("\n WRITER 2 created");
 
-        pthread_create(&tw2, &tw2attr, writer, NULL);
+        pthread_create(&tl2, &tl2attr, writer, NULL);
 
-        pthread_join(tw1, NULL);
+        pthread_join(tl1, NULL);
 
         pthread_join(tr1, NULL);
 
         pthread_join(tr2, NULL);
 
-        pthread_join(tw2, NULL);
+        pthread_join(tl2, NULL);
 
         return 0;
     }
