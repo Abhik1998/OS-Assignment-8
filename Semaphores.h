@@ -13,4 +13,5 @@ class Semaphore
   public:
     Semaphore(int);
     void getLock();
-    void ReleaseLock();};
+    void ReleaseLock();
+};
