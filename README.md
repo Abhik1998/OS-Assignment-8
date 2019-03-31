@@ -5,4 +5,5 @@ o Dinning philophers.<br/>
 o Producer Consumer.<br/>
 o Reader Writer.<br/>
 o Cigarette Smoker.<br/>
+o Sleeping Barber
 
